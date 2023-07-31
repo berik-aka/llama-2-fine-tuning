@@ -5,19 +5,11 @@ import torch
 
 from functools import partial
 
-from ft_datasets import (
-    get_grammar_dataset,
-    get_alpaca_dataset,
-    get_samsum_dataset,
-)
+from ft_datasets import get_musealpha_dataset
 from typing import Optional
 
 
-DATASET_PREPROC = {
-    "alpaca_dataset": partial(get_alpaca_dataset, max_words=224),
-    "grammar_dataset": get_grammar_dataset,
-    "samsum_dataset": get_samsum_dataset,
-}
+DATASET_PREPROC = {"musealpha_dataset": partial(get_musealpha_dataset, max_words=224)}
 
 
 def get_preprocessed_dataset(
@@ -32,7 +24,7 @@ def get_preprocessed_dataset(
             if split == "train"
             else dataset_config.test_split
         )
-    
+
     return DATASET_PREPROC[dataset_config.dataset](
         dataset_config,
         tokenizer,
